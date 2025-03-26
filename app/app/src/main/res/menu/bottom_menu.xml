@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search"
+        android:title="Tìm kiếm" />
+
+    <item
+        android:id="@+id/favorite"
+        android:icon="@drawable/ic_favorite"
+        android:title="Yêu thích" />
+
+    <item
+        android:id="@+id/null_fab"
+        android:enabled="false"
+        android:title="">
+    </item>
+
+    <item
+        android:id="@+id/booking"
+        android:icon="@drawable/ic_booking"
+        android:title="Đã đặt" />
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Cài đặt" />
+</menu>

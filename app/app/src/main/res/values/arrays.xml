@@ -1,0 +1,46 @@
+<resources>
+    <!-- Danh sách ngôn ngữ -->
+    <string-array name="language_options">
+        <item>Tiếng Việt</item>
+        <item>English</item>
+        <item>Français</item>
+        <item>Deutsch</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item>vi</item>
+        <item>en</item>
+        <item>fr</item>
+        <item>de</item>
+    </string-array>
+
+    <!-- Danh sách phương thức thanh toán -->
+    <string-array name="payment_methods">
+        <item>Thẻ tín dụng</item>
+        <item>PayPal</item>
+        <item>Chuyển khoản ngân hàng</item>
+        <item>Tiền mặt</item>
+    </string-array>
+
+    <string-array name="payment_values">
+        <item>credit_card</item>
+        <item>paypal</item>
+        <item>bank_transfer</item>
+        <item>cash</item>
+    </string-array>
+
+    <!-- Danh sách đơn vị tiền tệ -->
+    <string-array name="currency_options">
+        <item>VND - Đồng Việt Nam</item>
+        <item>USD - Đô la Mỹ</item>
+        <item>EUR - Euro</item>
+        <item>GBP - Bảng Anh</item>
+    </string-array>
+
+    <string-array name="currency_values">
+        <item>vnd</item>
+        <item>usd</item>
+        <item>eur</item>
+        <item>gbp</item>
+    </string-array>
+</resources>

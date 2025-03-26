@@ -1,0 +1,58 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 🔔 Cài đặt thông báo -->
+    <SwitchPreferenceCompat
+        android:key="notifications"
+        android:title="Nhận thông báo"
+        android:summary="Bật hoặc tắt thông báo đặt phòng, ưu đãi"
+        android:defaultValue="true" />
+
+    <!-- 🌍 Ngôn ngữ ứng dụng -->
+    <ListPreference
+        android:key="language"
+        android:title="Ngôn ngữ"
+        android:summary="Chọn ngôn ngữ hiển thị"
+        android:entries="@array/language_options"
+        android:entryValues="@array/language_values"
+        android:defaultValue="vi" />
+
+    <!-- 🌙 Chế độ tối -->
+    <SwitchPreferenceCompat
+        android:key="dark_mode"
+        android:title="Chế độ tối"
+        android:summary="Bật hoặc tắt chế độ nền tối"
+        android:defaultValue="false" />
+
+    <!-- 💳 Phương thức thanh toán mặc định -->
+    <ListPreference
+        android:key="payment_method"
+        android:title="Phương thức thanh toán"
+        android:summary="Chọn phương thức thanh toán mặc định"
+        android:entries="@array/payment_methods"
+        android:entryValues="@array/payment_values"
+        android:defaultValue="credit_card" />
+
+    <!-- 💲 Đơn vị tiền tệ -->
+    <ListPreference
+        android:key="currency"
+        android:title="Đơn vị tiền tệ"
+        android:summary="Chọn loại tiền tệ hiển thị"
+        android:entries="@array/currency_options"
+        android:entryValues="@array/currency_values"
+        android:defaultValue="vnd" />
+
+    <!-- 🔐 Quản lý tài khoản -->
+    <PreferenceCategory android:title="Tài khoản">
+
+        <Preference
+            android:key="login"
+            android:title="Đăng nhập"
+            android:summary="Đăng nhập vào tài khoản của bạn" />
+
+        <Preference
+            android:key="logout"
+            android:title="Đăng xuất"
+            android:summary="Đăng xuất khỏi tài khoản" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
