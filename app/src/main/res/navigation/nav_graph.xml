@@ -7,30 +7,30 @@
 
     <fragment
         android:id="@+id/bookingFragment"
-        android:name="com.example.hotelbookingapp.fragment.BookingFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.BookingFragment"
         android:label="fragment_booking"
         tools:layout="@layout/fragment_booking" />
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.example.hotelbookingapp.fragment.FavoriteFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.hotelbookingapp.fragment.SearchFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.hotelbookingapp.fragment.SettingsFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/cameraFragment"
-        android:name="com.example.hotelbookingapp.fragment.CameraFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.CameraFragment"
         android:label="CameraFragment" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.hotelbookingapp.fragment.LoginFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.LoginFragment"
         android:label="LoginFragment" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.hotelbookingapp.fragment;
+package com.example.hotelbookingapp.ui.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.hotelbookingapp.R;
-import com.example.hotelbookingapp.viewmodel.UserViewModel;
+import com.example.hotelbookingapp.ui.viewmodel.UserViewModel;
 
 public class LoginFragment extends Fragment {
 
@@ -60,6 +60,7 @@ public class LoginFragment extends Fragment {
                 requireActivity().getSupportFragmentManager().popBackStack();
             }
         });
+
         // Lắng nghe lỗi đăng nhập
         userViewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMsg -> {
             if (errorMsg != null) {

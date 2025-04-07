@@ -1,4 +1,4 @@
-package com.example.hotelbookingapp.repository;
+package com.example.hotelbookingapp.data.repository;
 
 import androidx.lifecycle.MutableLiveData;
 

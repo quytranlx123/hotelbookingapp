@@ -1,11 +1,11 @@
-package com.example.hotelbookingapp.viewmodel;
+package com.example.hotelbookingapp.ui.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
-import com.example.hotelbookingapp.repository.UserRepository;
+import com.example.hotelbookingapp.data.repository.UserRepository;
 import com.google.firebase.auth.FirebaseUser;
 
 public class UserViewModel extends ViewModel {

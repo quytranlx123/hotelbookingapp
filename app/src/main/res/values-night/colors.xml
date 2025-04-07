@@ -12,4 +12,6 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="background_light">#000000</color> <!-- Đen cho chế độ tối -->
     <color name="background_dark">#FFFFFF</color> <!-- Trắng cho chế độ sáng -->
+    <!--        Text color-->
+    <color name="text_primary">#FFFFFF</color>
 </resources>

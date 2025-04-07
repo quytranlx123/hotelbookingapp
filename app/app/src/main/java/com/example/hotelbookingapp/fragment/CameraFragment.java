@@ -1,4 +1,4 @@
-package com.example.hotelbookingapp.fragment;
+package com.example.hotelbookingapp.ui.fragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.hotelbookingapp.R;
 import com.example.hotelbookingapp.databinding.FragmentCameraBinding;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.mlkit.vision.barcode.BarcodeScanner;

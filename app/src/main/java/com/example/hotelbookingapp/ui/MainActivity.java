@@ -1,30 +1,18 @@
-package com.example.hotelbookingapp;
+package com.example.hotelbookingapp.ui;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.hotelbookingapp.PrintArgs;
+import com.example.hotelbookingapp.R;
 import com.example.hotelbookingapp.databinding.ActivityMainBinding;
-import com.example.hotelbookingapp.fragment.BookingFragment;
-import com.example.hotelbookingapp.fragment.CameraFragment;
-import com.example.hotelbookingapp.fragment.FavoriteFragment;
-import com.example.hotelbookingapp.fragment.SearchFragment;
-import com.example.hotelbookingapp.fragment.SettingsFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.hotelbookingapp.ui.fragment.CameraFragment;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 //public class MainActivity extends AppCompatActivity implements FragmentSwitcher {
 
@@ -33,9 +21,10 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     NavController navController;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        PrintArgs.log("Hello");
+
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         binding.bottomNavigationView.setBackground(null);

@@ -1,4 +1,4 @@
-package com.example.hotelbookingapp.fragment;
+package com.example.hotelbookingapp.ui.fragment;
 
 import android.os.Bundle;
 
@@ -8,10 +8,9 @@ import androidx.navigation.Navigation;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.example.hotelbookingapp.MainActivity;
+import com.example.hotelbookingapp.ui.MainActivity;
 import com.example.hotelbookingapp.R;
-import com.example.hotelbookingapp.databinding.ActivityMainBinding;
-import com.example.hotelbookingapp.viewmodel.UserViewModel;
+import com.example.hotelbookingapp.ui.viewmodel.UserViewModel;
 
 
 public class SettingsFragment extends PreferenceFragmentCompat {
