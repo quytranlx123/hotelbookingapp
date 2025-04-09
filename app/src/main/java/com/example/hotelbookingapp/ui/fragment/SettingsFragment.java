@@ -1,5 +1,7 @@
 package com.example.hotelbookingapp.ui.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -20,11 +22,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private NavController navController;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -35,8 +35,24 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         loginPreference = findPreference("login");
         logoutPreference = findPreference("logout");
-
+        Preference dashboardPreference = findPreference("dashboard");
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+
+
+        // Đọc trạng thái login từ SharedPreferences
+        SharedPreferences prefs = requireContext().getSharedPreferences("auth_prefs", Context.MODE_PRIVATE);
+        boolean isLoggedIn = prefs.getBoolean("is_logged_in", false);
+
+        if (loginPreference != null) loginPreference.setVisible(!isLoggedIn);
+        if (logoutPreference != null) logoutPreference.setVisible(isLoggedIn);
+
+        //Sự kiện ấn nút quản lý cơ sở dữ liệu
+        if (dashboardPreference != null) {
+            dashboardPreference.setOnPreferenceClickListener(preference -> {
+                navController.navigate(R.id.dashboardFragment);
+                return true;
+            });
+        }
 
         //Sự kiện ấn nút đăng nhập
         if (loginPreference != null) {
@@ -50,25 +66,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         if (logoutPreference != null) {
             logoutPreference.setOnPreferenceClickListener(preference -> {
                 userViewModel.logout();
+                userViewModel.saveLoginState(requireContext(), false); // cập nhật trạng thái
+                loginPreference.setVisible(true);
+                logoutPreference.setVisible(false);
                 return true;
             });
         }
 
-        // Theo dõi trạng thái đăng nhập
-        userViewModel.getCurrentUser().observe(this, user -> {
-            if (user != null) {
-                loginPreference.setVisible(false);
-                logoutPreference.setVisible(true);
-            } else {
-                loginPreference.setVisible(true);
-                logoutPreference.setVisible(false);
-            }
-        });
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ((MainActivity) requireActivity()).showMainUI(true); // Hiện lại UI khi thoát Login
+        ((MainActivity) requireActivity()).showMainUI(true);
     }
 }

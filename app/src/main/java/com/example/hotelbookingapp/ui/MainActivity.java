@@ -4,14 +4,15 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.hotelbookingapp.PrintArgs;
 import com.example.hotelbookingapp.R;
 import com.example.hotelbookingapp.databinding.ActivityMainBinding;
 import com.example.hotelbookingapp.ui.fragment.CameraFragment;
+import com.example.hotelbookingapp.ui.viewmodel.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
 //public class MainActivity extends AppCompatActivity implements FragmentSwitcher {
@@ -23,11 +24,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        PrintArgs.log("Hello");
-
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         binding.bottomNavigationView.setBackground(null);
+        UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+
 
 //        mAuth = FirebaseAuth.getInstance();
 //        FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -43,8 +44,23 @@ public class MainActivity extends AppCompatActivity {
 
 
         binding.fab.setOnClickListener(v -> {
-            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new CameraFragment()).addToBackStack(null).commit();
+            navController.navigate(R.id.cameraFragment);
         });
+
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if (destination.getId() == R.id.loginFragment
+                    || destination.getId() == R.id.roomFragment
+                    || destination.getId() == R.id.registerFragment
+                    || destination.getId() == R.id.dashboardFragment
+                    || destination.getId() == R.id.cameraFragment) {
+                binding.bottomAppBar.setVisibility(View.GONE);
+                binding.fab.hide();
+            } else {
+                binding.bottomAppBar.setVisibility(View.VISIBLE);
+                binding.fab.show();
+            }
+        });
+
     }
     public void showMainUI(boolean show) {
         if (show) {

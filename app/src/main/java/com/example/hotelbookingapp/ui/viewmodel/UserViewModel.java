@@ -1,5 +1,8 @@
 package com.example.hotelbookingapp.ui.viewmodel;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
@@ -35,6 +38,12 @@ public class UserViewModel extends ViewModel {
     public void register(String email, String password) {
         userRepository.register(email, password);
     }
+
+    public void saveLoginState(Context context, boolean isLoggedIn) {
+        SharedPreferences prefs = context.getSharedPreferences("auth_prefs", Context.MODE_PRIVATE);
+        prefs.edit().putBoolean("is_logged_in", isLoggedIn).apply();
+    }
+
 
     public void logout() {
         userRepository.logout();

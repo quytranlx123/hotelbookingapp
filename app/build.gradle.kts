@@ -47,6 +47,8 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.android)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.database)
     //
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
@@ -67,5 +69,12 @@ dependencies {
     //thư viện quản lý điều hướng fragment
     implementation ("androidx.navigation:navigation-fragment-ktx:2.7.0")
     implementation ("androidx.navigation:navigation-ui-ktx:2.7.0")
+    //Glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
+    //
+    implementation ("androidx.recyclerview:recyclerview:1.3.2")
+    implementation ("androidx.cardview:cardview:1.0.0")
+
 
 }

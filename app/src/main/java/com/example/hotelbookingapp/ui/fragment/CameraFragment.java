@@ -23,6 +23,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.hotelbookingapp.databinding.FragmentCameraBinding;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -93,9 +94,7 @@ public class CameraFragment extends Fragment {
                         if (cameraProvider != null) {
                             cameraProvider.unbindAll(); // Tắt camera
                         }
-                        requireActivity().getSupportFragmentManager().beginTransaction()
-                                .remove(CameraFragment.this) // Xóa Fragment khỏi giao diện
-                                .commit();
+                        NavHostFragment.findNavController(CameraFragment.this).navigateUp();
                     }
                 }
         );
