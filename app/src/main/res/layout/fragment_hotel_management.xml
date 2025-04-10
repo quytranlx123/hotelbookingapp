@@ -6,11 +6,10 @@
 
     <!-- RecyclerView hiển thị danh sách -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewHotels"
+        android:id="@+id/recyclerViewHotelManagement"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/buttonLayout"
-        android:padding="12dp" />
+        android:layout_marginTop="8dp"/>
 
     <!-- 3 nút ở dưới: Thêm, Sửa, Xoá -->
     <LinearLayout

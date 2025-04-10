@@ -89,7 +89,7 @@ public class DashboardFragment extends Fragment {
         hotelCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_dashboardFragment_to_hotelFragment);
+                navController.navigate(R.id.action_dashboardFragment_to_hotelManagementFragment);
             }
         });
 

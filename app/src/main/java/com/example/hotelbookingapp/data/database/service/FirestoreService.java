@@ -25,23 +25,27 @@ public class FirestoreService {
                 });
     }
 
-    public void addHotel(Hotel hotel, OnSuccessListener<Void> listener) {
-        db.collection("hotels")
-                .add(hotel)
-                .addOnSuccessListener(docRef -> listener.onSuccess(null));
+    public void addHotel(Hotel hotel, OnSuccessListener<Void> onSuccess) {
+        FirebaseFirestore.getInstance()
+                .collection("hotels")
+                .document(hotel.getId()) // <-- chỉ định ID
+                .set(hotel)
+                .addOnSuccessListener(onSuccess);
     }
 
-    public void updateHotel(Hotel hotel, OnSuccessListener<Void> listener) {
-        db.collection("hotels")
+    public void updateHotel(Hotel hotel, OnSuccessListener<Void> onSuccess) {
+        FirebaseFirestore.getInstance()
+                .collection("hotels")
                 .document(hotel.getId())
                 .set(hotel)
-                .addOnSuccessListener(listener);
+                .addOnSuccessListener(onSuccess);
     }
 
-    public void deleteHotel(String hotelId, OnSuccessListener<Void> listener) {
-        db.collection("hotels")
-                .document(hotelId)
+    public void deleteHotel(String id, OnSuccessListener<Void> onSuccess) {
+        FirebaseFirestore.getInstance()
+                .collection("hotels")
+                .document(id)
                 .delete()
-                .addOnSuccessListener(listener);
+                .addOnSuccessListener(onSuccess);
     }
 }

@@ -19,7 +19,10 @@
             app:destination="@id/roomFragment" />
         <action
             android:id="@+id/action_dashboardFragment_to_hotelFragment"
-            app:destination="@id/hotelFragment" />
+            app:destination="@id/hotelManagementFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_hotelManagementFragment"
+            app:destination="@id/hotelManagementFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -67,7 +70,7 @@
         android:name="com.example.hotelbookingapp.ui.fragment.RoomFragment"
         android:label="RoomFragment" />
     <fragment
-        android:id="@+id/hotelFragment"
-        android:name="com.example.hotelbookingapp.ui.fragment.management.HotelFragment"
-        android:label="HotelFragment" />
+        android:id="@+id/hotelManagementFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.management.HotelManagementFragment"
+        android:label="HotelManagementFragment" />
 </navigation>

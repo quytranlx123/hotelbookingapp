@@ -97,6 +97,17 @@
                 android:backgroundTint="@color/button_color"
                 android:text="Tìm"
                 android:textColor="@android:color/white" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewHotels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"/>
         </LinearLayout>
+
+
+
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

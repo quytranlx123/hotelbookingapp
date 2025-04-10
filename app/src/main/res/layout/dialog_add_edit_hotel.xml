@@ -10,6 +10,15 @@
         android:padding="20dp">
 
         <EditText
+            android:id="@+id/etId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mã khách sạn"
+            android:inputType="text"
+            android:enabled="true"
+            android:visibility="visible"/>
+
+        <EditText
             android:id="@+id/etName"
             android:hint="Tên khách sạn"
             android:layout_width="match_parent"

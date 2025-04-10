@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,38 +25,44 @@ import com.cloudinary.android.callback.UploadCallback;
 import com.example.hotelbookingapp.R;
 import com.example.hotelbookingapp.data.database.service.FirestoreService;
 import com.example.hotelbookingapp.data.models.Hotel;
-import com.example.hotelbookingapp.ui.adapter.HotelAdapter;
+import com.example.hotelbookingapp.ui.adapter.HotelManagementAdapter;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HotelFragment extends Fragment {
+public class HotelManagementFragment extends Fragment {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri selectedImageUri;
-    private RecyclerView recyclerView;
-    FirestoreService firestoreService = new FirestoreService();
+    private RecyclerView hotelRecyclerView;
+    private FirestoreService firestoreService = new FirestoreService();
     private List<Hotel> hotelList = new ArrayList<>();
-    private HotelAdapter adapter;
+    private HotelManagementAdapter adapter;
     private Hotel selectedHotel = null;
     private ImageView imagePreview;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_hotel, container, false);
+    public HotelManagementFragment() {
+        // Required empty public constructor
+    }
 
-        recyclerView = view.findViewById(R.id.recyclerViewHotels);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_hotel_management, container, false);
+
+        hotelRecyclerView = view.findViewById(R.id.recyclerViewHotelManagement);
         Button btnAdd = view.findViewById(R.id.btnAdd);
         Button btnEdit = view.findViewById(R.id.btnEdit);
         Button btnDelete = view.findViewById(R.id.btnDelete);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new HotelAdapter(hotelList, hotel -> {
+        hotelRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new HotelManagementAdapter(hotelList, hotel -> {
             selectedHotel = hotel;
-            Toast.makeText(getContext(), "Đã chọn: " + hotel.getName(), Toast.LENGTH_SHORT).show();
+            showHotelDialog(hotel); // Mở dialog khi click item
         });
-        recyclerView.setAdapter(adapter);
+        hotelRecyclerView.setAdapter(adapter);
 
         loadHotels();
 
@@ -71,7 +79,9 @@ public class HotelFragment extends Fragment {
         });
 
         btnDelete.setOnClickListener(v -> {
-            if (selectedHotel != null) deleteHotel(selectedHotel.getId());
+            if (selectedHotel != null) {
+                deleteHotel(selectedHotel.getId());
+            }
         });
 
         return view;
@@ -85,29 +95,33 @@ public class HotelFragment extends Fragment {
         });
     }
 
-    private void showHotelDialog(Hotel hotel) {
+    private void showHotelDialog(@Nullable Hotel hotel) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_edit_hotel, null);
         builder.setView(dialogView);
         builder.setTitle(hotel == null ? "Thêm khách sạn mới" : "Chỉnh sửa khách sạn");
 
+        EditText etId = dialogView.findViewById(R.id.etId);
         EditText etName = dialogView.findViewById(R.id.etName);
         EditText etAddress = dialogView.findViewById(R.id.etAddress);
         EditText etPrice = dialogView.findViewById(R.id.etPrice);
         EditText etRating = dialogView.findViewById(R.id.etRating);
         Button btnSelectImage = dialogView.findViewById(R.id.btnSelectImage);
+        imagePreview = dialogView.findViewById(R.id.imagePreview);
 
         if (hotel != null) {
+            etId.setText(hotel.getId());
+            etId.setEnabled(false);
             etName.setText(hotel.getName());
             etAddress.setText(hotel.getAddress());
             etPrice.setText(String.valueOf(hotel.getPrice()));
             etRating.setText(String.valueOf(hotel.getRating()));
-            ImageView imgPreview = dialogView.findViewById(R.id.imagePreview);
+
             Glide.with(this)
                     .load(hotel.getImageUrl())
-                    .placeholder(R.drawable.hotel) // ảnh tạm nếu URL null
-                    .error(R.drawable.hotel) // ảnh lỗi nếu load thất bại
-                    .into(imgPreview);
+                    .placeholder(R.drawable.hotel)
+                    .error(R.drawable.hotel)
+                    .into(imagePreview);
         }
 
         btnSelectImage.setOnClickListener(v -> {
@@ -123,12 +137,13 @@ public class HotelFragment extends Fragment {
         dialog.show();
 
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            String id = etId.getText().toString().trim();
             String name = etName.getText().toString().trim();
             String address = etAddress.getText().toString().trim();
             String priceStr = etPrice.getText().toString().trim();
             String ratingStr = etRating.getText().toString().trim();
 
-            if (name.isEmpty() || address.isEmpty() || priceStr.isEmpty() || ratingStr.isEmpty()) {
+            if (id.isEmpty() || name.isEmpty() || address.isEmpty() || priceStr.isEmpty() || ratingStr.isEmpty()) {
                 Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -150,7 +165,7 @@ public class HotelFragment extends Fragment {
 
                     uploadImageToCloudinary(selectedImageUri, imageUrl -> {
                         if (hotel == null) {
-                            Hotel newHotel = new Hotel(null, name, address, price, rating, imageUrl);
+                            Hotel newHotel = new Hotel(id, name, address, price, rating, imageUrl);
                             addHotelToFirestore(newHotel);
                         } else {
                             hotel.setName(name);
@@ -180,7 +195,7 @@ public class HotelFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == getActivity().RESULT_OK && data != null) {
             selectedImageUri = data.getData();
@@ -209,9 +224,17 @@ public class HotelFragment extends Fragment {
                         Toast.makeText(getContext(), "Lỗi khi upload ảnh", Toast.LENGTH_SHORT).show();
                     }
 
-                    @Override public void onStart(String requestId) {}
-                    @Override public void onProgress(String requestId, long bytes, long totalBytes) {}
-                    @Override public void onReschedule(String requestId, ErrorInfo error) {}
+                    @Override
+                    public void onStart(String requestId) {
+                    }
+
+                    @Override
+                    public void onProgress(String requestId, long bytes, long totalBytes) {
+                    }
+
+                    @Override
+                    public void onReschedule(String requestId, ErrorInfo error) {
+                    }
                 }).dispatch();
     }
 
