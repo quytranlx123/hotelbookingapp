@@ -8,19 +8,22 @@
 
     <fragment
         android:id="@+id/cameraFragment"
-        android:name="com.example.hotelbookingapp.ui.fragment.CameraFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.bottom_navigation.CameraFragment"
         android:label="CameraFragment" />
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.example.hotelbookingapp.ui.fragment.DashboardFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.management.DashboardFragment"
         android:label="DashboardFragment" >
         <action
             android:id="@+id/action_dashboardFragment_to_roomFragment"
             app:destination="@id/roomFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_hotelFragment"
+            app:destination="@id/hotelFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.hotelbookingapp.ui.fragment.LoginFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.login.LoginFragment"
         android:label="LoginFragment" >
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
@@ -28,31 +31,31 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.hotelbookingapp.ui.fragment.RegisterFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.login.RegisterFragment"
         android:label="RegisterFragment" />
     <fragment
         android:id="@+id/bookingFragment"
-        android:name="com.example.hotelbookingapp.ui.fragment.BookingFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.bottom_navigation.BookingFragment"
         android:label="fragment_booking"
         tools:layout="@layout/fragment_booking" />
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.example.hotelbookingapp.ui.fragment.FavoriteFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.bottom_navigation.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/roomDetailFragment"
-        android:name="com.example.hotelbookingapp.ui.fragment.RoomDetailFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.management.RoomDetailFragment"
         android:label="fragment_room_detail"
         tools:layout="@layout/fragment_room_detail" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.hotelbookingapp.ui.fragment.SearchFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.bottom_navigation.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.hotelbookingapp.ui.fragment.SettingsFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.bottom_navigation.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" >
         <action
@@ -63,4 +66,8 @@
         android:id="@+id/roomFragment"
         android:name="com.example.hotelbookingapp.ui.fragment.RoomFragment"
         android:label="RoomFragment" />
+    <fragment
+        android:id="@+id/hotelFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.management.HotelFragment"
+        android:label="HotelFragment" />
 </navigation>

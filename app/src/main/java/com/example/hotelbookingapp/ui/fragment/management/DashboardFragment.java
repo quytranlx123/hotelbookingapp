@@ -1,4 +1,4 @@
-package com.example.hotelbookingapp.ui.fragment;
+package com.example.hotelbookingapp.ui.fragment.management;
 
 import android.os.Bundle;
 
@@ -40,6 +40,7 @@ public class DashboardFragment extends Fragment {
         CardView bookingCardView = view.findViewById(R.id.bookingCardView);
         CardView commentCardView = view.findViewById(R.id.commentCardView);
         CardView paymentCardView = view.findViewById(R.id.paymentCardView);
+        CardView hotelCardView = view.findViewById(R.id.hotelCardView);
         NavController navController = Navigation.findNavController(view);
 
         roomCardView.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +84,12 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 // Xử lý khi người dùng nhấn vào CardView Phòng
 
+            }
+        });
+        hotelCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_dashboardFragment_to_hotelFragment);
             }
         });
 

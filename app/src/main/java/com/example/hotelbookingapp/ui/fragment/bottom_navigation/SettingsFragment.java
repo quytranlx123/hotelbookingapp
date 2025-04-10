@@ -1,4 +1,4 @@
-package com.example.hotelbookingapp.ui.fragment;
+package com.example.hotelbookingapp.ui.fragment.bottom_navigation;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,7 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.example.hotelbookingapp.ui.MainActivity;
+import com.example.hotelbookingapp.ui.activity.main.MainActivity;
 import com.example.hotelbookingapp.R;
 import com.example.hotelbookingapp.ui.viewmodel.UserViewModel;
 

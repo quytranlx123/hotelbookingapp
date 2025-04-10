@@ -1,4 +1,4 @@
-package com.example.hotelbookingapp.ui.fragment;
+package com.example.hotelbookingapp.ui.fragment.login;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

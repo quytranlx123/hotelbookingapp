@@ -1,4 +1,4 @@
-package com.example.hotelbookingapp.ui.fragment;
+package com.example.hotelbookingapp.ui.fragment.bottom_navigation;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

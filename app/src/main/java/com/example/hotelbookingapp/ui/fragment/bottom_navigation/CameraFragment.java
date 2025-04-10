@@ -1,4 +1,4 @@
-package com.example.hotelbookingapp.ui.fragment;
+package com.example.hotelbookingapp.ui.fragment.bottom_navigation;
 
 import android.Manifest;
 import android.content.pm.PackageManager;

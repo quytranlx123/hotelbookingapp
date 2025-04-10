@@ -14,4 +14,10 @@
     <color name="background_dark">#000000</color> <!-- Đen cho chế độ tối -->
     <!--        Text color-->
     <color name="text_primary">#000000</color> <!-- Đen trong light mode -->
+<!--    ActionBar Color-->
+    <color name="action_bar_color">#FF3700B3</color>
+<!--    button-->
+    <color name="button_color">#FF6200EE</color>
+
+
 </resources>
