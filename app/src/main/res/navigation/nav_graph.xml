@@ -15,9 +15,6 @@
         android:name="com.example.hotelbookingapp.ui.fragment.management.DashboardFragment"
         android:label="DashboardFragment" >
         <action
-            android:id="@+id/action_dashboardFragment_to_roomFragment"
-            app:destination="@id/roomFragment" />
-        <action
             android:id="@+id/action_dashboardFragment_to_hotelFragment"
             app:destination="@id/hotelManagementFragment" />
         <action
@@ -47,30 +44,37 @@
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
-        android:id="@+id/roomDetailFragment"
-        android:name="com.example.hotelbookingapp.ui.fragment.management.RoomDetailFragment"
-        android:label="fragment_room_detail"
-        tools:layout="@layout/fragment_room_detail" />
-    <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.hotelbookingapp.ui.fragment.bottom_navigation.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_hotelDetailFragment"
+            app:destination="@id/hotelDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.hotelbookingapp.ui.fragment.bottom_navigation.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" >
         <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             android:id="@+id/action_settingsFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/roomFragment"
-        android:name="com.example.hotelbookingapp.ui.fragment.RoomFragment"
-        android:label="RoomFragment" />
+
     <fragment
         android:id="@+id/hotelManagementFragment"
         android:name="com.example.hotelbookingapp.ui.fragment.management.HotelManagementFragment"
         android:label="HotelManagementFragment" />
+
+    <fragment
+        android:id="@+id/hotelDetailFragment"
+        android:name="com.example.hotelbookingapp.ui.client.HotelDetailFragment"
+        android:label="HotelDetailFragment" />
+
+
 </navigation>

@@ -1,11 +1,14 @@
 package com.example.hotelbookingapp.ui.activity.main;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
@@ -14,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.PreferenceManager;
 
 import com.example.hotelbookingapp.R;
 import com.example.hotelbookingapp.databinding.ActivityMainBinding;
@@ -31,6 +35,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isDarkMode = prefs.getBoolean("dark_mode", false);
+
+        // Áp dụng trước khi setContentView
+        AppCompatDelegate.setDefaultNightMode(
+                isDarkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
+        );
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -56,14 +67,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (destination.getId() == R.id.loginFragment
-                    || destination.getId() == R.id.hotelManagementFragment
-                    || destination.getId() == R.id.roomFragment
-                    || destination.getId() == R.id.registerFragment
-                    || destination.getId() == R.id.dashboardFragment
-                    || destination.getId() == R.id.cameraFragment) {
+            if (destination.getId() != R.id.searchFragment
+                && destination.getId() != R.id.bookingFragment
+                && destination.getId() != R.id.favoriteFragment
+                && destination.getId() != R.id.settingsFragment){
                 binding.bottomAppBar.setVisibility(View.GONE);
-                binding.fab.hide();
+                binding.fab.setVisibility(View.GONE);
                 binding.toolbar.setVisibility(View.GONE);
             } else {
                 binding.bottomAppBar.setVisibility(View.VISIBLE);
@@ -98,5 +107,20 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setDarkMode(boolean isDarkMode) {
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
+        // Lưu lại chế độ vào SharedPreferences (tuỳ chọn)
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs.edit().putBoolean("dark_mode", isDarkMode).apply();
+
+        // Cập nhật giao diện
+        recreate();
     }
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_hotel"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="Hình ảnh khách sạn" />
+
+        <TextView
+            android:id="@+id/txt_hotel_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên khách sạn"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Thêm mô tả, địa chỉ, đánh giá... nếu bạn có -->
+    </LinearLayout>
+</ScrollView>

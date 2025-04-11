@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -19,6 +20,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private UserViewModel userViewModel;
     private Preference loginPreference;
     private Preference logoutPreference;
+    private Preference darkModePreference;
+    private Preference dashboardPreference;
     private NavController navController;
 
 
@@ -31,11 +34,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
 
-        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+        navController = NavHostFragment.findNavController(this);
+
 
         loginPreference = findPreference("login");
         logoutPreference = findPreference("logout");
-        Preference dashboardPreference = findPreference("dashboard");
+        dashboardPreference = findPreference("dashboard");
+        darkModePreference = findPreference("dark_mode");
+
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
 
@@ -50,6 +56,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         if (dashboardPreference != null) {
             dashboardPreference.setOnPreferenceClickListener(preference -> {
                 navController.navigate(R.id.dashboardFragment);
+                return true;
+            });
+        }
+
+        //Sự kiện ấn nút dark_mode
+        if (darkModePreference != null) {
+            darkModePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean isDarkMode = (boolean) newValue;
+                ((MainActivity) requireActivity()).setDarkMode(isDarkMode);
                 return true;
             });
         }

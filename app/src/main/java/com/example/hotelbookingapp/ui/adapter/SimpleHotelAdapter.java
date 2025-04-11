@@ -17,27 +17,41 @@ import com.example.hotelbookingapp.data.models.SimpleHotel;
 
 import java.util.List;
 
-public class SimpleHotelAdapter extends RecyclerView.Adapter<SimpleHotelAdapter.ViewHolder> {
+public class SimpleHotelAdapter extends RecyclerView.Adapter<SimpleHotelAdapter.HotelViewHolder> {
+
+    public interface OnHotelClickListener {
+        void onHotelClick(SimpleHotel hotel);
+    }
+
     private Context context;
     private List<SimpleHotel> hotelList;
+    private OnHotelClickListener listener;
 
-    public SimpleHotelAdapter(Context context, List<SimpleHotel> hotelList) {
+    public SimpleHotelAdapter(Context context, List<SimpleHotel> hotelList, OnHotelClickListener listener) {
         this.context = context;
         this.hotelList = hotelList;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HotelViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_hotel, parent, false);
-        return new ViewHolder(view);
+        return new HotelViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HotelViewHolder holder, int position) {
         SimpleHotel hotel = hotelList.get(position);
-        holder.name.setText(hotel.getName());
-        Glide.with(context).load(hotel.getImageUrl()).into(holder.image);
+        holder.nameTextView.setText(hotel.getName());
+        // Load ảnh bằng Glide hoặc Picasso
+        Glide.with(context).load(hotel.getImageUrl()).into(holder.imageView);
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onHotelClick(hotel);
+            }
+        });
     }
 
     @Override
@@ -45,14 +59,14 @@ public class SimpleHotelAdapter extends RecyclerView.Adapter<SimpleHotelAdapter.
         return hotelList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView image;
-        TextView name;
+    public static class HotelViewHolder extends RecyclerView.ViewHolder {
+        TextView nameTextView;
+        ImageView imageView;
 
-        public ViewHolder(@NonNull View itemView) {
+        public HotelViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.hotel_image);
-            name = itemView.findViewById(R.id.hotel_name);
+            nameTextView = itemView.findViewById(R.id.hotel_name);
+            imageView = itemView.findViewById(R.id.hotel_image);
         }
     }
 }

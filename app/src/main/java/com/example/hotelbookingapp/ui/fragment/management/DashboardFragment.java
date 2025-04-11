@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -41,13 +42,18 @@ public class DashboardFragment extends Fragment {
         CardView commentCardView = view.findViewById(R.id.commentCardView);
         CardView paymentCardView = view.findViewById(R.id.paymentCardView);
         CardView hotelCardView = view.findViewById(R.id.hotelCardView);
-        NavController navController = Navigation.findNavController(view);
+        NavOptions navOptions = new NavOptions.Builder()
+                .setEnterAnim(android.R.anim.slide_in_left)
+                .setExitAnim(android.R.anim.slide_out_right)
+                .setPopEnterAnim(android.R.anim.slide_in_left)
+                .setPopExitAnim(android.R.anim.slide_out_right)
+                .build();
 
+        NavController navController = Navigation.findNavController(view);
         roomCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Xử lý khi người dùng nhấn vào CardView Phòng
-                navController.navigate(R.id.action_dashboardFragment_to_roomFragment);
             }
         });
 
@@ -89,7 +95,7 @@ public class DashboardFragment extends Fragment {
         hotelCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_dashboardFragment_to_hotelManagementFragment);
+                navController.navigate(R.id.action_dashboardFragment_to_hotelManagementFragment, null, navOptions);
             }
         });
 

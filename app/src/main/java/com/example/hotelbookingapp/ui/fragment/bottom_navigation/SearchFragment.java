@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,7 +40,14 @@ public class SearchFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_horizontal_hotels); // sửa từ findViewById thành view.findViewById
         hotelList = new ArrayList<>();
-        adapter = new SimpleHotelAdapter(requireContext(), hotelList);
+        adapter = new SimpleHotelAdapter(requireContext(), hotelList, hotel -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("hotelName", hotel.getName());
+            bundle.putString("imageUrl", hotel.getImageUrl());
+
+            NavController navController = Navigation.findNavController(requireView());
+            navController.navigate(R.id.action_searchFragment_to_hotelDetailFragment, bundle);
+        });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(adapter);
