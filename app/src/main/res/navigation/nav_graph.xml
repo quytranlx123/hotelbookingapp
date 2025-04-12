@@ -20,6 +20,24 @@
         <action
             android:id="@+id/action_dashboardFragment_to_hotelManagementFragment"
             app:destination="@id/hotelManagementFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_roomTypeManagementFragment"
+            app:destination="@id/roomTypeManagementFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_roomManagementFragment"
+            app:destination="@id/roomManagementFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_userManagementFragment"
+            app:destination="@id/userManagementFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_paymentManagementFragment"
+            app:destination="@id/paymentManagementFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_commentManagementFragment"
+            app:destination="@id/commentManagementFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_bookingManagementFragment"
+            app:destination="@id/bookingManagementFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -73,8 +91,38 @@
 
     <fragment
         android:id="@+id/hotelDetailFragment"
-        android:name="com.example.hotelbookingapp.ui.client.HotelDetailFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.client.HotelDetailFragment"
         android:label="HotelDetailFragment" />
+    <fragment
+        android:id="@+id/roomTypeManagementFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.management.RoomTypeManagementFragment"
+        android:label="fragment_room_type_management"
+        tools:layout="@layout/fragment_room_type_management" />
+    <fragment
+        android:id="@+id/roomManagementFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.management.RoomManagementFragment"
+        android:label="fragment_room_management"
+        tools:layout="@layout/fragment_room_management" />
+    <fragment
+        android:id="@+id/bookingManagementFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.management.BookingManagementFragment"
+        android:label="fragment_booking_management"
+        tools:layout="@layout/fragment_booking_management" />
+    <fragment
+        android:id="@+id/commentManagementFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.management.CommentManagementFragment"
+        android:label="fragment_comment_management"
+        tools:layout="@layout/fragment_comment_management" />
+    <fragment
+        android:id="@+id/paymentManagementFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.management.PaymentManagementFragment"
+        android:label="fragment_payment_management"
+        tools:layout="@layout/fragment_payment_management" />
+    <fragment
+        android:id="@+id/userManagementFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.management.UserManagementFragment"
+        android:label="fragment_user_management"
+        tools:layout="@layout/fragment_user_management" />
 
 
 </navigation>

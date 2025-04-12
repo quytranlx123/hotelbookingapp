@@ -13,51 +13,67 @@
             android:id="@+id/etId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="true"
             android:hint="Mã khách sạn"
             android:inputType="text"
-            android:enabled="true"
-            android:visibility="visible"/>
+            android:visibility="visible" />
 
         <EditText
             android:id="@+id/etName"
-            android:hint="Tên khách sạn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="Tên khách sạn" />
 
-        <EditText
-            android:id="@+id/etAddress"
-            android:hint="Địa chỉ"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Địa chỉ" />
+
+            <ImageButton
+                android:id="@+id/btn_open_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:contentDescription="Mở Google Maps"
+                android:src="@drawable/ic_map" />
+        </LinearLayout>
+
 
         <EditText
             android:id="@+id/etPrice"
-            android:hint="Giá"
-            android:inputType="numberDecimal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="Giá"
+            android:inputType="numberDecimal" />
 
         <Button
             android:id="@+id/btnSelectImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Chọn ảnh từ thư viện"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:text="Chọn ảnh từ thư viện" />
 
         <ImageView
             android:id="@+id/imagePreview"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:scaleType="centerCrop"
             android:layout_marginBottom="8dp"
-            android:visibility="visible"/>
+            android:scaleType="centerCrop"
+            android:visibility="visible" />
 
         <EditText
             android:id="@+id/etRating"
-            android:hint="Đánh giá (sao)"
-            android:inputType="numberDecimal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="Đánh giá (sao)"
+            android:inputType="numberDecimal" />
 
     </LinearLayout>
 </ScrollView>

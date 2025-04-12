@@ -54,6 +54,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Xử lý khi người dùng nhấn vào CardView Phòng
+                navController.navigate(R.id.action_dashboardFragment_to_roomManagementFragment, null, navOptions);
             }
         });
 
@@ -61,6 +62,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Xử lý khi người dùng nhấn vào CardView Phòng
+                navController.navigate(R.id.action_dashboardFragment_to_roomTypeManagementFragment, null, navOptions);
 
             }
         });
@@ -68,6 +70,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Xử lý khi người dùng nhấn vào CardView Phòng
+                navController.navigate(R.id.action_dashboardFragment_to_userManagementFragment, null, navOptions);
 
             }
         });
@@ -75,13 +78,14 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Xử lý khi người dùng nhấn vào CardView Phòng
-
+                navController.navigate(R.id.action_dashboardFragment_to_bookingManagementFragment, null, navOptions);
             }
         });
         commentCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Xử lý khi người dùng nhấn vào CardView Phòng
+                navController.navigate(R.id.action_dashboardFragment_to_commentManagementFragment, null, navOptions);
 
             }
         });
@@ -89,6 +93,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Xử lý khi người dùng nhấn vào CardView Phòng
+                navController.navigate(R.id.action_dashboardFragment_to_paymentManagementFragment, null, navOptions);
 
             }
         });

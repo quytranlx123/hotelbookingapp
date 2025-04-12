@@ -3,7 +3,7 @@
     android:id="@+id/hotel_card"
     android:layout_width="200dp"
     android:layout_height="200dp"
-    android:layout_margin="8dp"
+    android:layout_marginTop="10dp"
     android:elevation="6dp"
     android:radius="12dp">
 
@@ -25,10 +25,10 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:padding="8dp"
             android:text="Tên khách sạn"
             android:textColor="@color/text_primary"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:padding="8dp"/>
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -1,4 +1,4 @@
-package com.example.hotelbookingapp.ui.client;
+package com.example.hotelbookingapp.ui.fragment.client;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
