@@ -70,7 +70,6 @@
             android:layout_marginEnd="8dp">
 
             <LinearLayout
-                android:id="@+id/hotelCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -105,6 +104,7 @@
                     android:textColor="#757575" />
 
                 <Button
+                    android:id="@+id/btnHotelManagement"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="XEM THÊM"
@@ -123,7 +123,6 @@
             app:cardCornerRadius="8dp">
 
             <LinearLayout
-                android:id="@+id/roomCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -158,6 +157,7 @@
                     android:textColor="#757575" />
 
                 <Button
+                    android:id="@+id/btnRoomManagement"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Xem Thêm "
@@ -172,6 +172,7 @@
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/roomTypeCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="8dp"
@@ -184,7 +185,6 @@
             android:gravity="center_vertical">
 
             <LinearLayout
-            android:id="@+id/roomTypeCardView"
             android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -323,7 +323,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="90dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/img_food" /> <TextView
+                        android:src="@drawable/ic_bell" /> <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Food"
@@ -353,7 +353,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:background="#FFFFFF"
-        app:menu="@menu/bottom_navigation_menu" />
+        app:menu="@menu/bottom_menu" />
 
 </LinearLayout>
 

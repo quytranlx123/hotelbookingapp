@@ -210,7 +210,7 @@ public class HotelManagementFragment extends Fragment implements MapFragment.OnL
         });
         btnOpenMap.setOnClickListener(v -> {
             // Dùng NavController để điều hướng đến MapFragment
-            navController.navigate(R.id.action_hotelManagementFragment_to_mapFragment);
+//            navController.navigate(R.id.action_hotelManagementFragment_to_mapFragment);
         });
     }
 

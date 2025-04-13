@@ -1,7 +1,6 @@
 package com.example.hotelbookingapp.ui.fragment.management;
 
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -9,10 +8,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.hotelbookingapp.R;
 
@@ -28,81 +27,44 @@ public class DashboardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_dashboard, container, false);
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Thực hiện các thao tác giao diện ở đây
-        CardView roomCardView = view.findViewById(R.id.roomCardView);
+
+        // Tìm các CardView trong layout
+        Button btnHotelManagement = view.findViewById(R.id.btnHotelManagement);
+        Button btnRoomManagement = view.findViewById(R.id.btnRoomManagement);
         CardView roomTypeCardView = view.findViewById(R.id.roomTypeCardView);
-        CardView userCardView = view.findViewById(R.id.userCardView);
-        CardView bookingCardView = view.findViewById(R.id.bookingCardView);
-        CardView commentCardView = view.findViewById(R.id.commentCardView);
-        CardView paymentCardView = view.findViewById(R.id.paymentCardView);
-        CardView hotelCardView = view.findViewById(R.id.hotelCardView);
+
+        // Tạo NavOptions cho các hoạt động điều hướng
         NavOptions navOptions = new NavOptions.Builder()
-                .setEnterAnim(android.R.anim.slide_in_left)
-                .setExitAnim(android.R.anim.slide_out_right)
-                .setPopEnterAnim(android.R.anim.slide_in_left)
-                .setPopExitAnim(android.R.anim.slide_out_right)
+                .setEnterAnim(android.R.anim.slide_in_left) // Hiệu ứng khi chuyển đến màn hình mới
+                .setExitAnim(android.R.anim.slide_out_right) // Hiệu ứng khi quay lại màn hình trước
+                .setPopEnterAnim(android.R.anim.slide_in_left) // Hiệu ứng khi quay lại màn hình trước
+                .setPopExitAnim(android.R.anim.slide_out_right) // Hiệu ứng khi quay lại màn hình trước
                 .build();
 
+        // Lấy NavController từ view
         NavController navController = Navigation.findNavController(view);
-        roomCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Xử lý khi người dùng nhấn vào CardView Phòng
-                navController.navigate(R.id.action_dashboardFragment_to_roomManagementFragment, null, navOptions);
-            }
+
+        // Thiết lập sự kiện nhấn cho CardView "Phòng"
+        btnRoomManagement.setOnClickListener(v -> {
+            // Xử lý khi người dùng nhấn vào CardView Phòng
+            navController.navigate(R.id.action_dashboardFragment_to_roomManagementFragment, null, navOptions);
         });
 
-        roomTypeCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Xử lý khi người dùng nhấn vào CardView Phòng
-                navController.navigate(R.id.action_dashboardFragment_to_roomTypeManagementFragment, null, navOptions);
-
-            }
-        });
-        userCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Xử lý khi người dùng nhấn vào CardView Phòng
-                navController.navigate(R.id.action_dashboardFragment_to_userManagementFragment, null, navOptions);
-
-            }
-        });
-        bookingCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Xử lý khi người dùng nhấn vào CardView Phòng
-                navController.navigate(R.id.action_dashboardFragment_to_bookingManagementFragment, null, navOptions);
-            }
-        });
-        commentCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Xử lý khi người dùng nhấn vào CardView Phòng
-                navController.navigate(R.id.action_dashboardFragment_to_commentManagementFragment, null, navOptions);
-
-            }
-        });
-        paymentCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Xử lý khi người dùng nhấn vào CardView Phòng
-                navController.navigate(R.id.action_dashboardFragment_to_paymentManagementFragment, null, navOptions);
-
-            }
-        });
-        hotelCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_dashboardFragment_to_hotelManagementFragment, null, navOptions);
-            }
+        // Thiết lập sự kiện nhấn cho CardView "Loại Phòng"
+        roomTypeCardView.setOnClickListener(v -> {
+            // Xử lý khi người dùng nhấn vào CardView Loại Phòng
+            navController.navigate(R.id.action_dashboardFragment_to_roomTypeManagementFragment, null, navOptions);
         });
 
+        // Thiết lập sự kiện nhấn cho CardView "Khách Sạn"
+        btnHotelManagement.setOnClickListener(v -> {
+            // Xử lý khi người dùng nhấn vào CardView Khách Sạn
+            navController.navigate(R.id.action_dashboardFragment_to_hotelManagementFragment, null, navOptions);
+        });
     }
 }
