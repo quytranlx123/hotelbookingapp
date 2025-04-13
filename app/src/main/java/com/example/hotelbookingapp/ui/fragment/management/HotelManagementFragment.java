@@ -9,12 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +29,8 @@ import com.example.hotelbookingapp.R;
 import com.example.hotelbookingapp.data.database.service.FirestoreService;
 import com.example.hotelbookingapp.data.models.Hotel;
 import com.example.hotelbookingapp.ui.adapter.HotelManagementAdapter;
+import com.example.hotelbookingapp.ui.fragment.services.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -33,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class HotelManagementFragment extends Fragment {
+public class HotelManagementFragment extends Fragment implements MapFragment.OnLocationSelectedListener {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri selectedImageUri;
@@ -43,9 +48,18 @@ public class HotelManagementFragment extends Fragment {
     private HotelManagementAdapter adapter;
     private Hotel selectedHotel = null;
     private ImageView imagePreview;
+    private NavController navController;
 
     public HotelManagementFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onLocationSelected(LatLng latLng, String address) {
+        // Xử lý tọa độ và địa chỉ đã chọn
+        Toast.makeText(getContext(), "Vị trí đã chọn: " + address, Toast.LENGTH_SHORT).show();
+
+        // Cập nhật UI hoặc lưu vào cơ sở dữ liệu tùy theo nhu cầu
     }
 
     @Override
@@ -56,6 +70,7 @@ public class HotelManagementFragment extends Fragment {
         Button btnAdd = view.findViewById(R.id.btnAdd);
         Button btnEdit = view.findViewById(R.id.btnEdit);
         Button btnDelete = view.findViewById(R.id.btnDelete);
+        navController = Navigation.findNavController(view);
 
         hotelRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new HotelManagementAdapter(hotelList, hotel -> {
@@ -99,6 +114,7 @@ public class HotelManagementFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_edit_hotel, null);
         builder.setView(dialogView);
+        ImageButton btnOpenMap = dialogView.findViewById(R.id.btn_open_map);
         builder.setTitle(hotel == null ? "Thêm khách sạn mới" : "Chỉnh sửa khách sạn");
 
         EditText etId = dialogView.findViewById(R.id.etId);
@@ -191,6 +207,10 @@ public class HotelManagementFragment extends Fragment {
             } catch (NumberFormatException e) {
                 Toast.makeText(getContext(), "Vui lòng nhập số hợp lệ!", Toast.LENGTH_SHORT).show();
             }
+        });
+        btnOpenMap.setOnClickListener(v -> {
+            // Dùng NavController để điều hướng đến MapFragment
+            navController.navigate(R.id.action_hotelManagementFragment_to_mapFragment);
         });
     }
 
