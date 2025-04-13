@@ -70,9 +70,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         if (logoutPreference != null) {
             logoutPreference.setOnPreferenceClickListener(preference -> {
-                userViewModel.logout(requireContext());  // logout + xoá trạng thái
+                userViewModel.logout(requireContext());  // xoá token, signOut Firebase
 
-                // Hiện nút Login, ẩn Logout
+                // Reset UI
                 if (loginPreference != null) loginPreference.setVisible(true);
                 if (logoutPreference != null) logoutPreference.setVisible(false);
                 if (dashboardPreference != null) dashboardPreference.setVisible(false);
