@@ -29,16 +29,12 @@ public class HotelDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView nameTextView = view.findViewById(R.id.txt_hotel_name);
-        ImageView imageView = view.findViewById(R.id.img_hotel);
+        TextView nameTextView = view.findViewById(R.id.tvHotelName);
 
         Bundle bundle = getArguments();
         if (bundle != null) {
             String hotelName = bundle.getString("hotelName");
-            String imageUrl = bundle.getString("imageUrl");
-
             nameTextView.setText(hotelName);
-            Glide.with(requireContext()).load(imageUrl).into(imageView);
         }
     }
 }

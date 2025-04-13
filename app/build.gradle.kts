@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.database)
     implementation(libs.play.services.maps)
+    implementation(libs.recyclerview)
     //
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

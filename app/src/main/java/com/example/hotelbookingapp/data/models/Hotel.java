@@ -8,6 +8,9 @@ public class Hotel {
     private float rating;
     private String imageUrl;
 
+    public Hotel(String vinpearlResort, String url, String s) {
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }

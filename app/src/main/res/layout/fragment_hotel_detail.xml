@@ -1,31 +1,170 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:fillViewport="true">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
+        <!-- Carousel ảnh khách sạn -->
         <ImageView
-            android:id="@+id/img_hotel"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="Hình ảnh khách sạn" />
-
-        <TextView
-            android:id="@+id/txt_hotel_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tên khách sạn"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
+            android:contentDescription="TODO"
+            android:src="@drawable/hotelbg"
+            >
 
-        <!-- Thêm mô tả, địa chỉ, đánh giá... nếu bạn có -->
+        </ImageView>
+<!--        <androidx.viewpager2.widget.ViewPager2-->
+<!--            android:id="@+id/viewPagerImages"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginBottom="16dp"-->
+<!--            android:clipToPadding="false"-->
+<!--            android:clipChildren="false"-->
+<!--            android:pageMargin="16dp"-->
+<!--            android:pagePadding="0dp"-->
+<!--            android:pagePaddingTop="0dp"-->
+<!--            android:pagePaddingBottom="0dp"-->
+<!--            android:pagePaddingLeft="0dp"-->
+<!--            android:pagePaddingRight="0dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:src="@drawable/hotelbg"-->
+<!--            />-->
+
+        <!-- Tên khách sạn + đánh giá -->
+        <TextView
+            android:id="@+id/tvHotelName"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Khách sạn The Myst Đồng Khởi"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvHotelRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⭐️⭐️⭐️⭐️ 8.7 Tuyệt vời"
+            android:textSize="14sp"
+            android:textColor="#FFA000" />
+
+        <TextView
+            android:id="@+id/tvHotelAddress"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6-8 Hồ Huấn Nghiệp, Quận 1, TP.HCM"
+            android:textSize="14sp"
+            android:textColor="#555555" />
+
+        <!-- Tiện ích nổi bật -->
+        <TextView
+            android:text="Tiện ích nổi bật"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/amenitiesLayout"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="🛜 Wifi"
+                android:layout_marginEnd="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="🏊 Hồ bơi"
+                android:layout_marginEnd="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="🍳 Ăn sáng miễn phí"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- Giá -->
+        <TextView
+            android:id="@+id/tvHotelPrice"
+            android:text="Giá từ: 2.500.000 VND / đêm"
+            android:textSize="16sp"
+            android:textColor="#FF5722"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- Mô tả khách sạn -->
+        <TextView
+            android:text="Mô tả khách sạn"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvHotelDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Nằm ngay trung tâm Quận 1, The Myst là một trong những khách sạn boutique sang trọng bậc nhất Sài Gòn, kết hợp phong cách hiện đại và hoài cổ..."
+            android:textSize="14sp" />
+
+        <!-- Danh sách loại phòng -->
+        <TextView
+            android:text="Các loại phòng"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewRoomTypes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <!-- Button liên hệ và đặt -->
+        <LinearLayout
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnContactHotel"
+                android:text="Liên hệ khách sạn"
+                android:layout_marginEnd="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnBookNow"
+                android:text="Đặt ngay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/teal_700"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

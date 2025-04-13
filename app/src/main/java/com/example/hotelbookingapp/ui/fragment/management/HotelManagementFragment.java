@@ -132,8 +132,8 @@ public class HotelManagementFragment extends Fragment implements MapFragment.OnL
 
             Glide.with(this)
                     .load(hotel.getImageUrl())
-                    .placeholder(R.drawable.hotel)
-                    .error(R.drawable.hotel)
+                    .placeholder(R.drawable.hotelbg)
+                    .error(R.drawable.hotelbg)
                     .into(imagePreview);
         }
 

@@ -43,7 +43,6 @@ public class SearchFragment extends Fragment {
         adapter = new SimpleHotelAdapter(requireContext(), hotelList, hotel -> {
             Bundle bundle = new Bundle();
             bundle.putString("hotelName", hotel.getName());
-            bundle.putString("imageUrl", hotel.getImageUrl());
 
             NavController navController = Navigation.findNavController(requireView());
             navController.navigate(R.id.action_searchFragment_to_hotelDetailFragment, bundle);
