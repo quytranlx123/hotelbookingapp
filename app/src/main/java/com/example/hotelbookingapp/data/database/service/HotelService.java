@@ -8,7 +8,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FirestoreService {
+public class HotelService {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public void getAllHotels(OnSuccessListener<List<Hotel>> listener) {

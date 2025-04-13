@@ -13,7 +13,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -26,13 +25,11 @@ import com.cloudinary.android.MediaManager;
 import com.cloudinary.android.callback.ErrorInfo;
 import com.cloudinary.android.callback.UploadCallback;
 import com.example.hotelbookingapp.R;
-import com.example.hotelbookingapp.data.database.service.FirestoreService;
+import com.example.hotelbookingapp.data.database.service.HotelService;
 import com.example.hotelbookingapp.data.models.Hotel;
 import com.example.hotelbookingapp.ui.adapter.HotelManagementAdapter;
 import com.example.hotelbookingapp.ui.fragment.services.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +40,7 @@ public class HotelManagementFragment extends Fragment implements MapFragment.OnL
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri selectedImageUri;
     private RecyclerView hotelRecyclerView;
-    private FirestoreService firestoreService = new FirestoreService();
+    private HotelService hotelService = new HotelService();
     private List<Hotel> hotelList = new ArrayList<>();
     private HotelManagementAdapter adapter;
     private Hotel selectedHotel = null;
@@ -103,7 +100,7 @@ public class HotelManagementFragment extends Fragment implements MapFragment.OnL
     }
 
     private void loadHotels() {
-        firestoreService.getAllHotels(hotels -> {
+        hotelService.getAllHotels(hotels -> {
             hotelList.clear();
             hotelList.addAll(hotels);
             adapter.notifyDataSetChanged();
@@ -259,21 +256,21 @@ public class HotelManagementFragment extends Fragment implements MapFragment.OnL
     }
 
     private void addHotelToFirestore(Hotel hotel) {
-        firestoreService.addHotel(hotel, unused -> {
+        hotelService.addHotel(hotel, unused -> {
             Toast.makeText(getContext(), "Đã thêm!", Toast.LENGTH_SHORT).show();
             loadHotels();
         });
     }
 
     private void updateHotelInFirestore(Hotel hotel) {
-        firestoreService.updateHotel(hotel, unused -> {
+        hotelService.updateHotel(hotel, unused -> {
             Toast.makeText(getContext(), "Đã cập nhật!", Toast.LENGTH_SHORT).show();
             loadHotels();
         });
     }
 
     private void deleteHotel(String id) {
-        firestoreService.deleteHotel(id, unused -> {
+        hotelService.deleteHotel(id, unused -> {
             Toast.makeText(getContext(), "Đã xoá!", Toast.LENGTH_SHORT).show();
             selectedHotel = null;
             loadHotels();

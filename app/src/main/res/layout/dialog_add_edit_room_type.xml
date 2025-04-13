@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#FAFAFA">
 
     <LinearLayout
@@ -15,11 +15,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thêm Loại Phòng"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:text="Thêm / Sửa Loại Phòng"
             android:textColor="#212121"
-            android:layout_marginBottom="16dp" />
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <!-- Thông tin loại phòng -->
         <com.google.android.material.card.MaterialCardView
@@ -38,11 +39,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
                     android:text="Thông tin loại phòng"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textColor="#333333"
-                    android:layout_marginBottom="12dp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/spinnerHotel"
@@ -53,7 +54,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:hint="Id loại phòng">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etRoomTypeId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:hint="Tên loại phòng">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etRoomTypeName"
                         android:layout_width="match_parent"
@@ -65,14 +79,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:hint="Mô tả">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etRoomTypeDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minLines="3"
-                        android:maxLines="5"
                         android:gravity="top"
-                        android:inputType="textMultiLine" />
+                        android:inputType="textMultiLine"
+                        android:maxLines="5"
+                        android:minLines="3" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -80,6 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:hint="Giá phòng (VNĐ)">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etRoomTypePrice"
                         android:layout_width="match_parent"
@@ -105,11 +121,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
                     android:text="Ảnh loại phòng"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textColor="#333333"
-                    android:layout_marginBottom="12dp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSelectRoomTypeImage"
@@ -120,7 +136,14 @@
                     app:iconGravity="textStart"
                     app:iconPadding="8dp" />
 
-                <!-- RecyclerView ảnh -->
+                <ImageView
+                    android:id="@+id/ivRoomType"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="8dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="visible" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvRoomTypeImages"
                     android:layout_width="match_parent"
@@ -130,6 +153,33 @@
                     android:scrollbars="none" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+
+        <!-- Nút lưu / huỷ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancelRoomType"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Hủy"
+                android:textAllCaps="false" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSaveRoomType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/purple_500"
+                android:text="Lưu"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

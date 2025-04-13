@@ -18,4 +18,10 @@ public class SimpleHotel {
     public String getImageUrl() {
         return imageUrl;
     }
+
+    @Override
+    public String toString() {
+        return name; // để Spinner hiển thị tên khách sạn
+    }
+
 }
