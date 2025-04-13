@@ -50,12 +50,20 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.hotelbookingapp.ui.fragment.login.RegisterFragment"
-        android:label="RegisterFragment" />
+        android:label="RegisterFragment" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/bookingFragment"
         android:name="com.example.hotelbookingapp.ui.fragment.bottom_navigation.BookingFragment"
         android:label="fragment_booking"
-        tools:layout="@layout/fragment_booking" />
+        tools:layout="@layout/fragment_booking" >
+        <action
+            android:id="@+id/action_bookingFragment_to_bookingDetailFragment"
+            app:destination="@id/bookingDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.example.hotelbookingapp.ui.fragment.bottom_navigation.FavoriteFragment"
@@ -123,6 +131,10 @@
         android:name="com.example.hotelbookingapp.ui.fragment.management.UserManagementFragment"
         android:label="fragment_user_management"
         tools:layout="@layout/fragment_user_management" />
+    <fragment
+        android:id="@+id/bookingDetailFragment"
+        android:name="com.example.hotelbookingapp.ui.fragment.client.BookingDetailFragment"
+        android:label="BookingDetailFragment" />
 
 
 </navigation>

@@ -20,10 +20,11 @@
     <!--    button-->
     <color name="button_color">#FF6200EE</color>
 
-
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#4CAF50</color>
+
+    <color name="light_dark">#FFFFFF</color>
 
 
 </resources>

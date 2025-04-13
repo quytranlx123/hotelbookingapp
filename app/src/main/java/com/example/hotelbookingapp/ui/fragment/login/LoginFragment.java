@@ -26,7 +26,6 @@ public class LoginFragment extends Fragment {
     private UserViewModel userViewModel;
 
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
@@ -44,6 +43,7 @@ public class LoginFragment extends Fragment {
         EditText editTextPassword = view.findViewById(R.id.password);
         TextView signupText = view.findViewById(R.id.signupText);
 
+        // Gắn sự kiện click login
         btnLogin.setOnClickListener(v -> {
             String email = editTextEmail.getText().toString().trim();
             String password = editTextPassword.getText().toString().trim();
@@ -58,31 +58,35 @@ public class LoginFragment extends Fragment {
                 return;
             }
 
-            userViewModel.login(email, password);
-
+            // Gọi ViewModel login
+            userViewModel.login(email, password, requireContext());
         });
 
-        signupText.setOnClickListener(v -> {
-            // Điều hướng sang RegisterFragment
-            navController.navigate(R.id.action_loginFragment_to_registerFragment);
-        });
-
-
-
-        userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), firebaseUser -> {
-            if (firebaseUser != null) {
+        // Quan sát trạng thái login thành công
+        userViewModel.getLoginSuccess().observe(getViewLifecycleOwner(), success -> {
+            if (success != null && success) {
                 Toast.makeText(requireContext(), "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                 userViewModel.saveLoginState(requireContext(), true);
-                requireActivity().getSupportFragmentManager().popBackStack();
+                navController.navigate(R.id.searchFragment);  // <-- chuyển hướng sau khi login thành công
             }
         });
 
-        // Lắng nghe lỗi đăng nhập
+        // Quan sát lỗi
         userViewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMsg -> {
             if (errorMsg != null) {
                 Toast.makeText(getContext(), errorMsg, Toast.LENGTH_SHORT).show();
             }
         });
 
+        // Nếu có user từ trước
+        userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), firebaseUser -> {
+            if (firebaseUser != null) {
+                userViewModel.saveLoginState(requireContext(), true);
+                // Có thể chuyển hướng sang searchFragment nếu muốn, nhưng thông thường để loginSuccess điều khiển là đủ.
+            }
+        });
+
+        // Điều hướng sang register khi nhấn nút
+        signupText.setOnClickListener(v -> navController.navigate(R.id.action_loginFragment_to_registerFragment));
     }
 }
