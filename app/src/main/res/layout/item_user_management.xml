@@ -1,58 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/textViewUsername"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Vanhoa123"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="30dp" />
+        android:background="#37474F" android:padding="16dp"
+        android:gravity="center_vertical">
 
-    <Spinner
-        android:id="@+id/spinnerRole"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.8"
-        android:prompt="@string/select_role"
-        tools:layout_editor_absoluteX="104dp"
-        tools:layout_editor_absoluteY="30dp" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewEmail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.5"
-        android:text="Vanhoa@..."
-        android:textSize="14sp"
-        tools:layout_editor_absoluteX="222dp"
-        tools:layout_editor_absoluteY="35dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VanHoa123"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF" />
 
-    <ImageView
-        android:id="@+id/imageViewEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:contentDescription="@string/edit_user"
-        android:focusable="true"
-        android:src="@android:drawable/ic_menu_edit"
-        tools:layout_editor_absoluteX="301dp"
-        tools:layout_editor_absoluteY="30dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hoa2013@gmail.com"
+                android:textSize="12sp"
+                android:textColor="#B0BEC5" />
 
-    <ImageView
-        android:id="@+id/imageViewDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:contentDescription="@string/delete_user"
-        android:focusable="true"
-        android:src="@android:drawable/ic_delete"
-        tools:layout_editor_absoluteX="350dp"
-        tools:layout_editor_absoluteY="30dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/delete"  />
+
+    </LinearLayout>
+
+</LinearLayout>
