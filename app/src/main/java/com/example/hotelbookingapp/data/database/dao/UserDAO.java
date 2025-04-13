@@ -21,7 +21,6 @@ public class UserDAO {
     public boolean registerUser(User user) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("name", user.getName());
         values.put("email", user.getEmail());
         values.put("password", user.getPassword());
         values.put("role", "user");

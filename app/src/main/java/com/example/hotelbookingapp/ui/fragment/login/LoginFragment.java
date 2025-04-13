@@ -78,13 +78,15 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        // Nếu có user từ trước
+        // Quan sát trạng thái người dùng đã đăng nhập
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), firebaseUser -> {
             if (firebaseUser != null) {
                 userViewModel.saveLoginState(requireContext(), true);
-                // Có thể chuyển hướng sang searchFragment nếu muốn, nhưng thông thường để loginSuccess điều khiển là đủ.
+                // Điều hướng sang searchFragment nếu có người dùng đăng nhập từ trước
+                navController.navigate(R.id.searchFragment);
             }
         });
+
 
         // Điều hướng sang register khi nhấn nút
         signupText.setOnClickListener(v -> navController.navigate(R.id.action_loginFragment_to_registerFragment));

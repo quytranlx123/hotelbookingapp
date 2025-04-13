@@ -67,10 +67,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return true;
             });
         }
-
         if (logoutPreference != null) {
             logoutPreference.setOnPreferenceClickListener(preference -> {
-                userViewModel.logout(requireContext());  // xoá token, signOut Firebase
+                // Xoá token và sign out Firebase
+                userViewModel.logout(requireContext());
+
+                // Xoá dữ liệu trong SharedPreferences
+                SharedPreferences authPrefs = requireContext().getSharedPreferences("auth_prefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor authEditor = authPrefs.edit();
+                authEditor.putBoolean("is_logged_in", false);  // Đánh dấu là chưa đăng nhập
+                authEditor.apply();
 
                 // Reset UI
                 if (loginPreference != null) loginPreference.setVisible(true);

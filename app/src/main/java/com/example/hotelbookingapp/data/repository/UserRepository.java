@@ -3,7 +3,6 @@ package com.example.hotelbookingapp.data.repository;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,7 +18,6 @@ public class UserRepository {
     private final MutableLiveData<String> userRole = new MutableLiveData<>();
     private final MutableLiveData<Boolean> loginSuccess = new MutableLiveData<>();
 
-
     public UserRepository() {
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -30,6 +28,7 @@ public class UserRepository {
     public MutableLiveData<FirebaseUser> getCurrentUser() {
         return currentUser;
     }
+
     public MutableLiveData<Boolean> getLoginSuccess() {
         return loginSuccess;
     }
@@ -42,17 +41,19 @@ public class UserRepository {
         return userRole;
     }
 
+    // Đăng nhập
     public void login(String email, String password) {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 currentUser.setValue(user);
+
                 if (user != null) {
                     db.collection("users").document(user.getUid()).get()
                             .addOnSuccessListener(doc -> {
                                 if (doc.exists()) {
                                     String role = doc.getString("role");
-                                    userRole.setValue(role);
+                                    userRole.setValue(role); // Cập nhật role người dùng
                                     loginSuccess.setValue(true);
                                 } else {
                                     errorMessage.setValue("Không tìm thấy dữ liệu người dùng.");
@@ -67,6 +68,7 @@ public class UserRepository {
         });
     }
 
+    // Đăng ký
     public void register(String email, String password) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
@@ -92,6 +94,7 @@ public class UserRepository {
                 });
     }
 
+    // Đăng xuất
     public void logout() {
         firebaseAuth.signOut();
         currentUser.setValue(null);

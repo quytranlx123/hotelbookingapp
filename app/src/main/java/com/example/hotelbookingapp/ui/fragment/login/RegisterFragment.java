@@ -41,11 +41,10 @@ public class RegisterFragment extends Fragment {
     }
 
     private void register() {
-        String name = etName.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
-        if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+        if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(getContext(), "Vui lòng nhập đầy đủ", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -55,7 +54,7 @@ public class RegisterFragment extends Fragment {
             return;
         }
 
-        boolean result = userDAO.registerUser(new User(name, email, password));
+        boolean result = userDAO.registerUser(new User(email, password));
         if (result) {
             Toast.makeText(getContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
             etName.setText("");
