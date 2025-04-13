@@ -70,7 +70,7 @@ public class HotelManagementFragment extends Fragment implements MapFragment.OnL
         Button btnAdd = view.findViewById(R.id.btnAdd);
         Button btnEdit = view.findViewById(R.id.btnEdit);
         Button btnDelete = view.findViewById(R.id.btnDelete);
-        navController = Navigation.findNavController(view);
+        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
 
         hotelRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new HotelManagementAdapter(hotelList, hotel -> {
