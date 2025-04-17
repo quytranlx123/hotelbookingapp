@@ -81,4 +81,7 @@ dependencies {
     implementation ("com.cloudinary:cloudinary-android:2.3.1")
     //
     implementation ("com.google.android.gms:play-services-maps:18.1.0")
+    //
+    implementation ("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.0") // version có thể thay đổi
+
 }

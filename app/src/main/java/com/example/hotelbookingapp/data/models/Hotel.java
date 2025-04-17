@@ -1,6 +1,8 @@
 package com.example.hotelbookingapp.data.models;
 
-public class Hotel {
+import java.io.Serializable;
+
+public class Hotel implements Serializable {
     private String id; // Document ID
     private String name;
     private String address;

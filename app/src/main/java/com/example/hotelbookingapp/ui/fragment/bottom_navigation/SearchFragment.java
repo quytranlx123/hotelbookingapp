@@ -24,6 +24,7 @@ import com.example.hotelbookingapp.ui.viewmodel.HotelViewModel;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,7 @@ public class SearchFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_horizontal_hotels); // sửa từ findViewById thành view.findViewById
         hotelViewModel = new ViewModelProvider(requireActivity()).get(HotelViewModel.class);
+
         HotelAdapter hotelAdapter = new HotelAdapter(hotel -> {
             // khi click vào item, truyền dữ liệu sang Fragment khác
 
@@ -52,9 +54,10 @@ public class SearchFragment extends Fragment {
             bundle.putSerializable("hotel", hotel);  // nhớ model Hotel implements Serializable hoặc Parcelable
 
             NavHostFragment.findNavController(this).navigate(
-                    R.id.action_homeFragment_to_detailFragment, bundle
+                    R.id.action_searchFragment_to_hotelDetailFragment, bundle
             );
         });
+
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         );
