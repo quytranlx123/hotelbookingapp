@@ -55,13 +55,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
-
         android:importantForAccessibility="no"
         android:src="@drawable/ic_qrscan"
         android:tint="@color/lavender"
         app:layout_anchor="@+id/bottomAppBar"
         app:layout_anchorGravity="top|center"
-        app:maxImageSize="40dp" />
+        app:maxImageSize="40dp"
+        android:stateListAnimator="@animator/fab_state_list_animator" />
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

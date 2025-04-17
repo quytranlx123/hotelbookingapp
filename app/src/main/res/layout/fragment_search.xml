@@ -3,17 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="4dp"
+    android:background="@drawable/bg_card"
+    android:elevation="6dp"
     android:padding="16dp">
+
+    <!-- Header Title -->
+    <TextView
+        android:id="@+id/search_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tìm kiếm chỗ nghỉ"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="12dp" />
+
+    <!-- Filter Button -->
+    <ImageButton
+        android:id="@+id/btn_filter"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_filter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="Filter search results"
+        app:tint="@color/icon_tint" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/search_header">
 
-        <!-- This LinearLayout is the ONLY direct child of the ScrollView -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,21 +49,25 @@
                 android:id="@+id/location_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_input_border"
+                android:background="@drawable/bg_input_rounded"
                 android:orientation="horizontal"
-                android:padding="12dp">
+                android:padding="12dp"
+                android:elevation="2dp">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_search" />
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_search"
+                    app:tint="@color/icon_tint" />
 
                 <TextView
                     android:id="@+id/txt_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Xung quanh vị trí hiện tại" />
+                    android:layout_marginStart="12dp"
+                    android:text="Xung quanh vị trí hiện tại"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <!-- 2. Ngày -->
@@ -46,22 +75,26 @@
                 android:id="@+id/date_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_input_border"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_input_rounded"
                 android:orientation="horizontal"
-                android:padding="12dp">
+                android:padding="12dp"
+                android:elevation="2dp">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_calendar" />
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_calendar"
+                    app:tint="@color/icon_tint" />
 
                 <TextView
                     android:id="@+id/txt_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="T.4, 09 Th4 - T.5, 10 Th4" />
+                    android:layout_marginStart="12dp"
+                    android:text="T.4, 09 Th4 - T.5, 10 Th4"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <!-- 3. Người -->
@@ -69,39 +102,106 @@
                 android:id="@+id/guest_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_input_border"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_input_rounded"
                 android:orientation="horizontal"
-                android:padding="12dp">
+                android:padding="12dp"
+                android:elevation="2dp">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_guest" />
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_guest"
+                    app:tint="@color/icon_tint" />
 
                 <TextView
                     android:id="@+id/txt_guest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="1 phòng · 2 người lớn · 0 trẻ em" />
+                    android:layout_marginStart="12dp"
+                    android:text="1 phòng · 2 người lớn · 0 trẻ em"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
             </LinearLayout>
 
-            <!-- 4. Nút tìm kiếm -->
-            <Button
-                android:id="@+id/btn_search"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_button_rounded"
-                android:backgroundTint="@color/button_color"
-                android:text="Tìm"
-                android:textColor="@android:color/white" />
+            <!-- Clear Search Button -->
+            <TextView
+                android:id="@+id/btn_clear_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="end"
+                android:text="Xóa bộ lọc"
+                android:textColor="@color/primary_color"
+                android:textSize="14sp"
+                android:padding="8dp"
+                android:background="?attr/selectableItemBackground" />
 
+            <!-- Search and Sort Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btn_search"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_button_gradient"
+                    android:text="Tìm kiếm"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:elevation="4dp" />
+
+                <ImageButton
+                    android:id="@+id/btn_sort"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_input_rounded"
+                    android:src="@drawable/ic_sort"
+                    android:elevation="2dp"
+                    android:contentDescription="Sort search results"
+                    app:tint="@color/icon_tint" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/divider_color" />
+
+            <!-- Promotional Banner -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/promotion_banner"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_banner_rounded" />
+
+            <!-- Loading Indicator -->
+            <ProgressBar
+                android:id="@+id/loading_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:layout_marginTop="16dp" />
+
+            <!-- RecyclerView for Hotels -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_horizontal_hotels"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="220dp"
+                android:layout_marginTop="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

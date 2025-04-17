@@ -38,33 +38,25 @@ public class DashboardFragment extends Fragment {
         Button btnRoomManagement = view.findViewById(R.id.btnRoomManagement);
         CardView roomTypeCardView = view.findViewById(R.id.roomTypeCardView);
 
-        // Tạo NavOptions cho các hoạt động điều hướng
-        NavOptions navOptions = new NavOptions.Builder()
-                .setEnterAnim(android.R.anim.slide_in_left) // Hiệu ứng khi chuyển đến màn hình mới
-                .setExitAnim(android.R.anim.slide_out_right) // Hiệu ứng khi quay lại màn hình trước
-                .setPopEnterAnim(android.R.anim.slide_in_left) // Hiệu ứng khi quay lại màn hình trước
-                .setPopExitAnim(android.R.anim.slide_out_right) // Hiệu ứng khi quay lại màn hình trước
-                .build();
-
         // Lấy NavController từ view
         NavController navController = Navigation.findNavController(view);
 
         // Thiết lập sự kiện nhấn cho CardView "Phòng"
         btnRoomManagement.setOnClickListener(v -> {
             // Xử lý khi người dùng nhấn vào CardView Phòng
-            navController.navigate(R.id.action_dashboardFragment_to_roomManagementFragment, null, navOptions);
+            navController.navigate(R.id.action_dashboardFragment_to_roomManagementFragment);
         });
 
         // Thiết lập sự kiện nhấn cho CardView "Loại Phòng"
         roomTypeCardView.setOnClickListener(v -> {
             // Xử lý khi người dùng nhấn vào CardView Loại Phòng
-            navController.navigate(R.id.action_dashboardFragment_to_roomTypeManagementFragment, null, navOptions);
+            navController.navigate(R.id.action_dashboardFragment_to_roomTypeManagementFragment);
         });
 
         // Thiết lập sự kiện nhấn cho CardView "Khách Sạn"
         btnHotelManagement.setOnClickListener(v -> {
             // Xử lý khi người dùng nhấn vào CardView Khách Sạn
-            navController.navigate(R.id.action_dashboardFragment_to_hotelManagementFragment, null, navOptions);
+            navController.navigate(R.id.action_dashboardFragment_to_hotelManagementFragment);
         });
     }
 }

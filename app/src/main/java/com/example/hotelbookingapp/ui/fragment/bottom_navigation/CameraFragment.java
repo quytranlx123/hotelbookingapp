@@ -1,12 +1,16 @@
 package com.example.hotelbookingapp.ui.fragment.bottom_navigation;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -38,19 +42,18 @@ import java.util.concurrent.Executors;
 
 public class CameraFragment extends Fragment {
 
+    private int fabX, fabY, fabRadius;
     private PreviewView previewView;
     private FragmentCameraBinding binding;
     private ExecutorService cameraExecutor;
     private BarcodeScanner barcodeScanner;
     private ActivityResultLauncher<String> requestPermissionLauncher;
-    private ProcessCameraProvider cameraProvider; // Thêm biến này
-
+    private ProcessCameraProvider cameraProvider;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setEnterTransition(new MaterialFadeThrough());
-
 
         requestPermissionLauncher =
                 registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -64,8 +67,7 @@ public class CameraFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCameraBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -74,6 +76,17 @@ public class CameraFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         previewView = binding.previewView;
+
+        Bundle args = getArguments();
+        if (args != null) {
+            fabX = args.getInt("fab_x");
+            fabY = args.getInt("fab_y") - getStatusBarHeight();  // Trừ status bar nếu có
+            fabRadius = args.getInt("fab_radius");
+        }
+
+        previewView.setVisibility(View.INVISIBLE);  // Ẩn trước
+
+        previewView.post(() -> revealPreviewFromFab(fabX, fabY));  // Animate từ vị trí FAB
 
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissionLauncher.launch(Manifest.permission.CAMERA);
@@ -89,20 +102,50 @@ public class CameraFragment extends Fragment {
 
         cameraExecutor = Executors.newSingleThreadExecutor();
 
-        // Xử lý sự kiện khi nhấn nút Back
         requireActivity().getOnBackPressedDispatcher().addCallback(
                 getViewLifecycleOwner(),
                 new OnBackPressedCallback(true) {
                     @Override
                     public void handleOnBackPressed() {
-                        if (cameraProvider != null) {
-                            cameraProvider.unbindAll(); // Tắt camera
-                        }
-                        NavHostFragment.findNavController(CameraFragment.this).navigateUp();
+                        concealPreviewToFab(fabX, fabY);
                     }
                 }
         );
     }
+
+    private void revealPreviewFromFab(int centerX, int centerY) {
+        float finalRadius = (float) Math.hypot(previewView.getWidth(), previewView.getHeight());
+
+        Animator anim = ViewAnimationUtils.createCircularReveal(previewView, centerX, centerY, fabRadius, finalRadius);
+        previewView.setVisibility(View.VISIBLE);
+        anim.setDuration(500);
+        anim.setInterpolator(new DecelerateInterpolator());
+        anim.start();
+    }
+
+    private void concealPreviewToFab(int centerX, int centerY) {
+        // Tính toán bán kính ban đầu để tạo hiệu ứng vòng tròn
+        float initialRadius = (float) Math.hypot(previewView.getWidth(), previewView.getHeight());
+
+        // Tạo hiệu ứng thu nhỏ (circular reveal)
+        Animator anim = ViewAnimationUtils.createCircularReveal(previewView, centerX, centerY, initialRadius, fabRadius);
+        anim.setDuration(500);
+        anim.setInterpolator(new DecelerateInterpolator());
+
+        // Khi hiệu ứng thu nhỏ kết thúc
+        anim.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                // Ẩn PreviewView và giải phóng camera
+                previewView.setVisibility(View.INVISIBLE);
+                unbindCamera();
+                // Quay lại màn hình trước đó
+                NavHostFragment.findNavController(CameraFragment.this).navigateUp();
+            }
+        });
+        anim.start();
+    }
+
 
     private void startCamera() {
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture =
@@ -110,7 +153,7 @@ public class CameraFragment extends Fragment {
 
         cameraProviderFuture.addListener(() -> {
             try {
-                cameraProvider = cameraProviderFuture.get(); // Lưu cameraProvider
+                cameraProvider = cameraProviderFuture.get();
 
                 Preview preview = new Preview.Builder().build();
                 CameraSelector cameraSelector = new CameraSelector.Builder()
@@ -157,20 +200,27 @@ public class CameraFragment extends Fragment {
     }
 
     private void showToast(String message) {
-        requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), "QR Code: " + message, Toast.LENGTH_SHORT).show());
+        requireActivity().runOnUiThread(() ->
+                Toast.makeText(requireContext(), "QR Code: " + message, Toast.LENGTH_SHORT).show()
+        );
     }
 
+    private int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (cameraProvider != null) {
-            cameraProvider.unbindAll(); // Đảm bảo camera đã tắt
-        }
+        unbindCamera();
         if (cameraExecutor != null) {
             cameraExecutor.shutdown();
         }
         binding = null;
     }
-
 }

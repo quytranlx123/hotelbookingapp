@@ -1,0 +1,18 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <objectAnimator
+            android:propertyName="tint"
+            android:duration="200"
+            android:valueFrom="@color/lavender"
+            android:valueTo="@color/red"
+            android:valueType="intType" />
+    </item>
+    <item>
+        <objectAnimator
+            android:propertyName="tint"
+            android:duration="200"
+            android:valueFrom="@color/red"
+            android:valueTo="@color/lavender"
+            android:valueType="intType" />
+    </item>
+</selector>

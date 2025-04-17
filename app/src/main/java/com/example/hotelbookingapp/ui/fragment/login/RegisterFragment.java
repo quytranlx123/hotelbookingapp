@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,32 +12,35 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.hotelbookingapp.R;
-import com.example.hotelbookingapp.data.database.dao.UserDAO;
-import com.example.hotelbookingapp.data.models.User;
-
+import com.example.hotelbookingapp.data.callback.RegisterCallback;
+import com.example.hotelbookingapp.ui.viewmodel.UserViewModel;
 
 public class RegisterFragment extends Fragment {
 
     private EditText etName, etEmail, etPassword;
-    private UserDAO userDAO;
-    NavController navController;
-
+    private UserViewModel userViewModel;
+    private NavController navController;
+    private Button btnRegister;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_register, container, false);
 
-        etName = view.findViewById(R.id.etName);
+        // Khởi tạo view
         etEmail = view.findViewById(R.id.etEmail);
         etPassword = view.findViewById(R.id.etPassword);
-        view.findViewById(R.id.btnRegister).setOnClickListener(v -> register());
+        btnRegister = view.findViewById(R.id.btnRegister);
 
-        userDAO = new UserDAO(getContext());
+        // Khởi tạo ViewModel Firebase
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+
         return view;
     }
 
@@ -45,36 +49,54 @@ public class RegisterFragment extends Fragment {
         String password = etPassword.getText().toString().trim();
 
         if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(getContext(), "Vui lòng nhập đầy đủ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (userDAO.isEmailExists(email)) {
-            Toast.makeText(getContext(), "Email đã tồn tại", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        boolean result = userDAO.registerUser(new User(email, password));
-        if (result) {
-            Toast.makeText(getContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
-            etName.setText("");
-            etEmail.setText("");
-            etPassword.setText("");
-        } else {
-            Toast.makeText(getContext(), "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
-        }
+//        userViewModel.register(email, password, new RegisterCallback() {
+//            @Override
+//            public void onSuccess() {
+//                Toast.makeText(getContext(), "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+//                clearFields(); // 💡 chỉ clear khi thành công
+//            }
+//
+//            @Override
+//            public void onFailure(String message) {
+//                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+//            }
+//        });
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView signInText = view.findViewById(R.id.signInText);
         navController = Navigation.findNavController(view);
 
+        TextView signInText = view.findViewById(R.id.signInText);
+
         signInText.setOnClickListener(v -> {
-            // Điều hướng sang RegisterFragment
-            navController.navigate(R.id.action_registerFragment_to_loginFragment);
+            if (navController.getCurrentDestination() != null &&
+                    navController.getCurrentDestination().getId() == R.id.registerFragment) {
+                navController.navigate(R.id.action_registerFragment_to_loginFragment);
+            }
         });
 
+//        userViewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMsg -> {
+//            if (errorMsg != null) {
+//                Toast.makeText(getContext(), errorMsg, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+        btnRegister.setOnClickListener(v -> {
+            register();
+            clearFields();
+        });
+    }
+
+    private void clearFields() {
+        if (etEmail != null) etEmail.setText("");
+        if (etPassword != null) etPassword.setText("");
     }
 }
+
+

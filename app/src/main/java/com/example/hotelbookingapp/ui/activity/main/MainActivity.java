@@ -1,11 +1,13 @@
 package com.example.hotelbookingapp.ui.activity.main;
 
+import android.animation.ValueAnimator;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -13,8 +15,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
@@ -27,68 +31,83 @@ import com.google.firebase.auth.FirebaseAuth;
 //public class MainActivity extends AppCompatActivity implements FragmentSwitcher {
 
 public class MainActivity extends AppCompatActivity {
-    ActivityMainBinding binding;
-    FirebaseAuth mAuth;
-    NavController navController;
-    Toolbar toolbar;
-    TextView title;
+    private ActivityMainBinding binding;
+    private NavController navController;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("user_role", Context.MODE_PRIVATE);
+
+
+
         boolean isDarkMode = prefs.getBoolean("dark_mode", false);
 
         // Áp dụng trước khi setContentView
         AppCompatDelegate.setDefaultNightMode(
                 isDarkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
         );
+
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.bottomNavigationView.setBackground(null);
-        UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        toolbar = findViewById(R.id.toolbar);
 
-        setSupportActionBar(toolbar);
+        toolbar = findViewById(R.id.toolbar);
 
 //        mAuth = FirebaseAuth.getInstance();
 //        FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        setSupportActionBar(toolbar);
+        animateFab();
 
         binding.bottomNavigationView.post(() -> {
             navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
             NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
+
+            navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+                if (destination.getId() != R.id.searchFragment
+                        && destination.getId() != R.id.bookingFragment
+                        && destination.getId() != R.id.favoriteFragment
+                        && destination.getId() != R.id.settingsFragment) {
+                    binding.bottomAppBar.setVisibility(View.GONE);
+                    binding.fab.setVisibility(View.GONE);
+                    binding.toolbar.setVisibility(View.GONE);
+                } else {
+                    binding.bottomAppBar.setVisibility(View.VISIBLE);
+                    binding.fab.setVisibility(View.VISIBLE);
+                    binding.toolbar.setVisibility(View.VISIBLE);
+                }
+            });
         });
 
 
+// Chuyển đến CameraFragment khi nhấn FAB
         binding.fab.setOnClickListener(v -> {
-            navController.navigate(R.id.cameraFragment);
-        });
+            // Lấy vị trí của FAB trên màn hình
+            int[] fabPosition = new int[2];
+            v.getLocationInWindow(fabPosition);
 
-        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (destination.getId() != R.id.searchFragment
-                && destination.getId() != R.id.bookingFragment
-                && destination.getId() != R.id.favoriteFragment
-                && destination.getId() != R.id.settingsFragment){
-                binding.bottomAppBar.setVisibility(View.GONE);
-                binding.fab.setVisibility(View.GONE);
-                binding.toolbar.setVisibility(View.GONE);
-            } else {
-                binding.bottomAppBar.setVisibility(View.VISIBLE);
-                binding.fab.show();
-                binding.toolbar.setVisibility(View.VISIBLE);
-            }
-        });
+            // Tạo Bundle để gửi dữ liệu qua CameraFragment
+            Bundle args = new Bundle();
+            args.putInt("fab_x", fabPosition[0] + v.getWidth() / 2);  // Lấy vị trí X của FAB
+            args.putInt("fab_y", fabPosition[1] + v.getHeight() / 2);  // Lấy vị trí Y của FAB
+            args.putInt("fab_radius", v.getWidth() / 2);  // Lấy bán kính của FAB
 
+            // Chuyển hướng đến CameraFragment và truyền dữ liệu qua Bundle
+            navController.navigate(R.id.cameraFragment, args);
+        });
     }
-    public void showMainUI(boolean show) {
-        if (show) {
-            binding.bottomNavigationView.setVisibility(View.VISIBLE);
-        } else {
-            binding.bottomNavigationView.setVisibility(View.GONE);
-        }
-    }
+
+//    public void showMainUI(boolean show) {
+//        if (show) {
+//            binding.bottomNavigationView.setVisibility(View.VISIBLE);
+//        } else {
+//            binding.bottomNavigationView.setVisibility(View.GONE);
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -109,18 +128,22 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setDarkMode(boolean isDarkMode) {
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+    private void animateFab() {
+        ValueAnimator colorAnimator = ValueAnimator.ofArgb(
+                getResources().getColor(R.color.lavender),
+                getResources().getColor(R.color.black)
+        );
+        colorAnimator.setDuration(2000); // Thời gian thay đổi màu sắc
+        colorAnimator.setRepeatCount(ValueAnimator.INFINITE); // Lặp lại vô hạn
+        colorAnimator.setRepeatMode(ValueAnimator.REVERSE); // Đảo ngược màu sắc sau mỗi lần lặp
 
-        // Lưu lại chế độ vào SharedPreferences (tuỳ chọn)
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        prefs.edit().putBoolean("dark_mode", isDarkMode).apply();
+        colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator) {
+                binding.fab.setImageTintList(ColorStateList.valueOf((int) animator.getAnimatedValue()));
+            }
+        });
 
-        // Cập nhật giao diện
-        recreate();
+        colorAnimator.start();
     }
 }
